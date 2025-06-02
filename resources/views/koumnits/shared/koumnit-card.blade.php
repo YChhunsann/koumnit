@@ -2,16 +2,16 @@
     <div class="px-3 pt-4 pb-2">
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img style="width:50px" class="me-2 avatar-sm rounded-circle"
-                    src="{{ $koumnit->user->getImageURL()}}"
+                <img style="width:50px" class="me-2 avatar-sm rounded-circle" src="{{ $koumnit->user->getImageURL() }}"
                     alt="{{ $koumnit->user->name }}">
                 <div>
-                    <h5 class="card-title mb-0"><a href="{{route('users.show', $koumnit->user->id)}}"> {{ $koumnit->user->name }} </a></h5>
-                </div> 
+                    <h5 class="card-title mb-0"><a href="{{ route('users.show', $koumnit->user->id) }}">
+                            {{ $koumnit->user->name }} </a></h5>
+                </div>
             </div>
             <div class="d-flex align-items-center">
                 <a href="{{ route('koumnits.show', $koumnit->id) }}" class="text-decoration-none">view</a>
-                @if (Auth::id() === $koumnit->user_id)
+                @can('koumnit.delete', $koumnit)
                     <form action="{{ route('koumnits.destroy', $koumnit->id) }}" method="post"
                         class="d-flex align-items-center me-3">
                         @csrf
@@ -19,7 +19,7 @@
                         <a href="{{ route('koumnits.edit', $koumnit->id) }}" class="mx-2">edit</a>
                         <button type="submit" class="btn btn-danger btn-sm">x</button>
                     </form>
-                @endif
+                @endcan
             </div>
         </div>
     </div>

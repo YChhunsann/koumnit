@@ -6,14 +6,13 @@ use App\Models\Koumnit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\Gate;
 
 class KoumnitController extends Controller
 {
 
     public function show(Koumnit $koumnit)
     {
-
-
         return view('koumnits.show', compact('koumnit'));
     }
 
@@ -33,9 +32,7 @@ class KoumnitController extends Controller
 
     public function destroy(Koumnit $koumnit)
     {
-        if (FacadesAuth::id() !== $koumnit->user_id) {
-            abort(404);
-        }
+        Gate::authorize('koumnit.delete', $koumnit);
 
         $koumnit->delete();
 
@@ -44,12 +41,15 @@ class KoumnitController extends Controller
 
     public function edit(Koumnit $koumnit)
     {
+        Gate::authorize('koumnit.delete', $koumnit);
         $editing = true;
         return view('koumnits.show', compact('koumnit', 'editing'));
     }
 
     public function update(Koumnit $koumnit)
     {
+        Gate::authorize('koumnit.delete', $koumnit);
+
         $validated = request()->validate([
             'content' => 'required|min:5|max:255',
         ]);

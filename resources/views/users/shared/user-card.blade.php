@@ -2,8 +2,8 @@
     <div class="px-3 pt-4 pb-2">
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img style="width:150px" class="me-3 avatar-sm rounded-circle" src="{{ $user->getImageURL() }}"
-                    alt="Mario Avatar">
+                <img style="width: 50px; height: 50px; object-fit: cover;" class="me-2 rounded-circle"
+                    src="{{ $user->getImageURL() }}" alt="{{ $user->name }}">
                 <div>
 
                     <h3 class="card-title mb-0"><a href="#"> {{ $user->name }}
@@ -13,11 +13,9 @@
                 </div>
             </div>
             <div>
-                @auth
-                    @if (Auth::id() === $user->id)
-                        <a href="{{ route('users.edit', $user->id) }}"> Edit </a>
-                    @endif
-                @endauth
+                @can('profile.update', $user)
+                    <a href="{{ route('users.edit', $user->id) }}"> Edit </a>
+                @endcan
             </div>
         </div>
         <div class="px-2 mt-4">

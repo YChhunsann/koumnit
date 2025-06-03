@@ -2,8 +2,9 @@
     <div class="px-3 pt-4 pb-2">
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img style="width:50px" class="me-2 avatar-sm rounded-circle" src="{{ $koumnit->user->getImageURL() }}"
-                    alt="{{ $koumnit->user->name }}">
+                <img src="{{ $koumnit->user->getImageURL() }}" alt="{{ $koumnit->user->name }}"
+                    style="width: 50px; height: 50px; object-fit: cover;" class="me-2 rounded-circle" />
+
                 <div>
                     <h5 class="card-title mb-0"><a href="{{ route('users.show', $koumnit->user->id) }}">
                             {{ $koumnit->user->name }} </a></h5>

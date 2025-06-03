@@ -3,20 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Koumnit;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $koumnits = Koumnit::orderBy('created_at', 'desc');
+        $search = request('search');
 
-        if (request()->has('search')) {
-            $koumnits = $koumnits->where('content', 'like', '%' . request()->get('search', '') . '%');
-        }
+        $koumnits = Koumnit::with('user')
+            ->when($search, function ($query, $search) {
+                $query->where('content', 'like', '%' . $search . '%')
+                    ->orWhereHas('user', function ($userQuery) use ($search) {
+                        $userQuery->where('name', 'like', '%' . $search . '%');
+                    });
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
 
-        return view('dashboard', [
-            'koumnits' => $koumnits->paginate(5)
-        ]);
+        return view('dashboard', compact('koumnits'));
     }
 }

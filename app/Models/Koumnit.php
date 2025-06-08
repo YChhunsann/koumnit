@@ -9,6 +9,7 @@ class Koumnit extends Model
     protected $fillable = [
         'user_id',
         'content',
+        'image',
     ];
 
     protected $with = ['user:id,name,image','comments.user:id,name,image'];

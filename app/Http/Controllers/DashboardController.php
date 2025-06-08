@@ -20,7 +20,7 @@ class DashboardController extends Controller
                     });
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(5);
+            ->paginate(20);
 
         return view('dashboard', compact('koumnits'));
     }

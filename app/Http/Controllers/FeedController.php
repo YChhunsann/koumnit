@@ -23,7 +23,7 @@ class FeedController extends Controller
         }
 
         return view('dashboard', [
-            'koumnits' => $koumnits->paginate(5)
+            'koumnits' => $koumnits->paginate(20)
         ]);
     }
 }

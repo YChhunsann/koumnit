@@ -12,7 +12,7 @@ class CommentController extends Controller
 {
     public function store(Koumnit $koumnit){
         request()->validate([
-            'content' => 'required|min:5|max:255',
+            'content' => 'required|min:5',
         ]);
 
         $comment = new Comment();

@@ -12,7 +12,6 @@
                 </div>
                 <div class="overflow-hidden">
                     <a class="h6 mb-0" href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a>
-                    {{-- <p class="mb-0 small text-truncate">@Mario</p> --}}
                 </div>
             </div>
         @endforeach

@@ -23,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
-        View::share('topUsers', User::withCount('followers')->orderBy('followers_count', 'desc')->limit(5)->get());
+        View::share('topUsers', User::withCount('followers')->orderBy('followers_count', 'desc')->limit(4)->get());
     }
 }

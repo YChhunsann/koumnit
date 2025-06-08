@@ -27,7 +27,7 @@
 
     <div class="card-body">
         @if ($editing ?? false)
-            <form action="{{ route('koumnits.update', $koumnit->id) }}" method="post">
+            <form action="{{ route('koumnits.update', $koumnit->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="mb-3">
@@ -36,15 +36,32 @@
                         <div class="d-block fs-6 text-danger">{{ $message }}</div>
                     @enderror
                 </div>
+                {{-- updating image --}}
+                <div class="mb-3">
+                    <input type="file" name="image" class="form-control">
+                    @error('image')
+                        <div class="d-block fs-6 text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
                 <div class="">
                     <button type="submit" class="btn btn-dark mb-2 btn-sm"> Update </button>
                 </div>
             </form>
         @else
-            <p class="fs-6 fw-light text-muted">
+            <p class="fs-3 fw-light">
                 {{ $koumnit->content }}
             </p>
+
+            {{-- Show the uploaded image if it exists --}}
+            @if ($koumnit->image)
+                <div class="d-flex justify-content-center">
+                    <img src="{{ asset('storage/' . $koumnit->image) }}" alt="Koumnit Image"
+                        class="img-fluid rounded mb-3" style="max-height: 400px; object-fit: contain;">
+                </div>
+            @endif
+
         @endif
+
         <div class="d-flex justify-content-between">
             @include('koumnits.shared.like-button')
             <div>
@@ -54,5 +71,4 @@
         </div>
         @include('koumnits.shared.comments-box')
     </div>
-
 </div>

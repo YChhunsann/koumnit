@@ -12,14 +12,22 @@ class KoumnitLikeController extends Controller
     public function like(Koumnit $koumnit)
     {
         $liker = Auth::user();
-        $liker->likes()->attach($koumnit);
-        return redirect()->route('dashboard');
+        $liker->likes()->syncWithoutDetaching($koumnit);
+
+        return response()->json([
+            'status' => 'liked',
+            'likes' => $koumnit->likes()->count(),
+        ]);
     }
 
     public function unlike(Koumnit $koumnit)
     {
         $liker = Auth::user();
         $liker->likes()->detach($koumnit);
-        return redirect()->route('dashboard');
+
+        return response()->json([
+            'status' => 'unliked',
+            'likes' => $koumnit->likes()->count(),
+        ]);
     }
 }

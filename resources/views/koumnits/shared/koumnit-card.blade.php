@@ -48,9 +48,18 @@
                 </div>
             </form>
         @else
-            <p class="fs-3 fw-light">
-                {{ $koumnit->content }}
-            </p>
+            @php
+                $converter = new \League\CommonMark\CommonMarkConverter([
+                    'html_input' => 'strip',
+                    'allow_unsafe_links' => false,
+                ]);
+            @endphp
+
+            <div class="fs-5 markdown-content">
+                {!! $converter->convert($koumnit->content)->getContent() !!}
+            </div>
+
+
 
             {{-- Show the uploaded image if it exists --}}
             @if ($koumnit->image)

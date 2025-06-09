@@ -4,7 +4,7 @@
         <form action="{{ route('koumnits.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
-                <textarea name="content" class="form-control" id="content" rows="3"></textarea>
+                <textarea name="content" class="form-control" id="content" rows="8"></textarea>
                 @error('content')
                     <div class="d-block fs-6 text-danger">{{ $message }}</div>
                 @enderror

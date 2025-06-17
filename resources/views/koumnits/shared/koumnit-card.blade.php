@@ -49,11 +49,13 @@
             </form>
         @else
             @php
-                $converter = new \League\CommonMark\CommonMarkConverter([
-                    'html_input' => 'strip',
-                    'allow_unsafe_links' => false,
-                ]);
+                $environment = new \League\CommonMark\Environment\Environment();
+                $environment->addExtension(new \League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension());
+                $environment->addExtension(new \League\CommonMark\Extension\GithubFlavoredMarkdownExtension());
+
+                $converter = new \League\CommonMark\MarkdownConverter($environment);
             @endphp
+
 
             <div class="fs-5 markdown-content">
                 {!! $converter->convert($koumnit->content)->getContent() !!}

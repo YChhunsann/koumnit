@@ -28,7 +28,7 @@
 
         .code-block {
             position: relative;
-            border-radius: 15px;
+            border-radius: 10px;
             overflow: hidden;
             /* ensures child elements stay within rounded corners */
         }
@@ -36,7 +36,7 @@
         /* Apply same radius to pre and code elements */
         .code-block pre,
         .code-block code {
-            border-radius: 15px;
+            border-radius: 10px;
         }
 
         /* Optional: remove any margin/padding overflow that may break the curve */
